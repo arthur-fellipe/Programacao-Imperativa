@@ -2,8 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-
 #define TAM 5
+//Variáveis globais
+int quantidadeAtleta=0, quantidadeAtividade=0, quantidadePlano=0;
 
 typedef struct Atleta
 {
@@ -33,9 +34,9 @@ typedef struct Plano
 {
     char numeroAtleta[10]; // número do atleta
     char dataInicio[11]; // data de início da atividade
-    char horaInicio[5]; // hora de início da atividade
+    char horaInicio[6]; // hora de início da atividade
     char dataFim[11]; // data de fim da atividade
-    char horaFim[5]; // hora de fim da atividade
+    char horaFim[6]; // hora de fim da atividade
     char atividade[50]; // atividade realizada pelo atleta
     float distancia; // distância percorrida
 } Plano;
@@ -48,6 +49,7 @@ Atleta guardarAtleta(Atleta Atleta[TAM])
 
     for (int i = 0; i < TAM; i++)
     {        
+        printf("\nNOVO ATLETA\n");
         printf("Digite o número do atleta: \n");
         scanf("%s", Atleta[i].numeroAtleta);
         printf("Digite o nome do atleta: \n");
@@ -57,6 +59,7 @@ Atleta guardarAtleta(Atleta Atleta[TAM])
         printf("Digite a idade do atleta: \n");
         scanf("%d", &Atleta[i].idade);
 
+        quantidadeAtleta++;
         printf("Inscrever novo atleta? (0-Não ou 1-Sim)\n");
         scanf("%d", &novoAtleta);
         if (novoAtleta == 0)
@@ -72,6 +75,7 @@ Atividade guardarAtividade(Atividade Atividade[TAM])
     int novaAtividade;
     for (int i = 0; i < TAM; i++)
     {
+        printf("\nNOVA ATIVIDADE\n");
         printf("Digite o número do atleta: \n");
         scanf("%s", Atividade[i].numeroAtleta);         
         printf("Digite a data de realização da atividade: \n");
@@ -83,6 +87,7 @@ Atividade guardarAtividade(Atividade Atividade[TAM])
         printf("Digite a distância percorrida durante a atividade: \n");
         scanf("%f", &Atividade[i].distancia);
 
+        quantidadeAtividade++;
         printf("Inscrever nova atividade? (0-Não ou 1-Sim)\n");
         scanf("%d", &novaAtividade);
         if (novaAtividade == 0)
@@ -93,32 +98,87 @@ Atividade guardarAtividade(Atividade Atividade[TAM])
     
 }
 
-//Procedimento que lista os atletas cadastrados
-void listarAtleta(Atleta Atleta[TAM], int quantidadeAtletas)
+//Procedimento que lê a informação relativa a um ou mais planos de atividades a serem realizadas e armazena os dados
+Plano guardarPlano(Plano Plano[TAM])
 {
-    for (int i = 0; i < quantidadeAtletas; i++)
+    int novoPlano;
+    for (int i = 0; i < TAM; i++)
+    {
+        printf("\nNOVO PLANO DE ATIVIDADE\n");
+        printf("Digite o número do atleta: \n");
+        scanf("%s", Plano[i].numeroAtleta);         
+        printf("Digite a data de início da realização da atividade: \n");
+        scanf("%s", Plano[i].dataInicio);
+        printf("Digite o horário de início da atividade: \n");
+        scanf("%s", Plano[i].horaInicio);
+        printf("Digite a data de fim da realização da atividade: \n");
+        scanf("%s", Plano[i].dataFim);
+        printf("Digite o horário de fim da atividade: \n");
+        scanf("%s", Plano[i].horaFim);
+        printf("Digite a atividade a ser realizada: \n");
+        scanf("%s", Plano[i].atividade);
+        printf("Digite a distância a ser percorrida durante a atividade: \n");
+        scanf("%f", &Plano[i].distancia);
+
+        quantidadePlano++;
+        printf("Inscrever novo plano? (0-Não ou 1-Sim)\n");
+        scanf("%d", &novoPlano);
+        if (novoPlano == 0)
+        {
+            break;
+        }        
+    }    
+    
+}
+
+//Procedimento que lista os atletas cadastrados
+void listarAtleta(Atleta Atleta[TAM])
+{
+    printf("\nLISTA DE ATLETAS\n");
+    for (int i = 0; i < quantidadeAtleta; i++)
     {
         printf("Atleta %d\nNúmero do atleta: %s\nNome: %s\nTelefone: %s\nIdade: %d\n", i+1, Atleta[i].numeroAtleta, Atleta[i].nome, Atleta[i].telefone, Atleta[i].idade);       
     }    
 }
 
 //Procedimento que lista as atividades realizadas
-void listarAtividade(Atividade Atividade[TAM], int quantidadeAtividades)
+void listarAtividade(Atividade Atividade[TAM])
 {
-    for (int i = 0; i < quantidadeAtividades; i++)
+    printf("\nLISTA DE ATIVIDADES\n");
+    for (int i = 0; i < quantidadeAtividade; i++)
     {
         printf("Atividade %d\nNúmero do atleta: %s\nData: %s\nAtividade: %s\nTempo: %.2fmin\nDistância: %.2fm\n", i+1, Atividade[i].numeroAtleta, Atividade[i].data, Atividade[i].atividade, Atividade[i].tempo, Atividade[i].distancia);       
     }    
 }
 
+//Procedimento que lista os planos das atividades a serem realizadas
+void listarPlano(Plano Plano[TAM])
+{
+    printf("\nLISTA DE PLANOS DE ATIVIDADES\n");
+    for (int i = 0; i < quantidadePlano; i++)
+    {
+        printf("Plano %d\n", i+1);
+        printf("Número do atleta: %s\n", Plano[i].numeroAtleta);
+        printf("Data de início: %s\n", Plano[i].dataInicio);
+        printf("Hora de início: %s\n", Plano[i].horaInicio);
+        printf("Data de fim: %s\n", Plano[i].dataFim);
+        printf("Hora de fim: %s\n", Plano[i].horaFim);
+        printf("Atividade: %s\n", Plano[i].atividade);
+        printf("Distância: %.2fm\n", Plano[i].distancia);
+    }    
+}
+
 int main()
 {
-    int quantidade=1;
+
     Atleta Atleta[TAM];
     Atividade Atividade[TAM];
+    Plano Plano[TAM];
 
     guardarAtleta(Atleta);
     guardarAtividade(Atividade);
-    listarAtleta(Atleta, quantidade);
-    listarAtividade(Atividade, quantidade);
+    guardarPlano(Plano);
+    listarAtleta(Atleta);
+    listarAtividade(Atividade);
+    listarPlano(Plano);
 }
